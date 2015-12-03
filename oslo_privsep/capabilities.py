@@ -72,12 +72,16 @@ crt = ffi.dlopen(None)
 ffi.cdef(CDEF)
 
 
-# mock.patching crt.* directly seems to upset cffi.  Use an
-# indirection point here for easier testing.
-_prctl = crt.prctl
-_capget = crt.capget
-_capset = crt.capset
-
+if os.name != 'nt':
+    # mock.patching crt.* directly seems to upset cffi.  Use an
+    # indirection point here for easier testing.
+    _prctl = crt.prctl
+    _capget = crt.capget
+    _capset = crt.capset
+else:
+    _prctl = None
+    _capget = None
+    _capset = None
 
 def set_keepcaps(enable):
     """Set/unset thread's "keep capabilities" flag - see prctl(2)"""

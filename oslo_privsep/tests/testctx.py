@@ -21,6 +21,7 @@ import oslo_privsep.tests
 from oslo_privsep.tests import fixture
 
 
+
 context = priv_context.PrivContext(
     # This context allows entrypoints anywhere below oslo_privsep.tests.
     oslo_privsep.tests.__name__,
